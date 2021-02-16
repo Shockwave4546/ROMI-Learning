@@ -56,19 +56,28 @@ public class ROMIChassis extends SubsystemBase {
   }
 
   // Create the Drive Command
-  public void drive(double speed, double direction) {
+  public void driveForward(double speed) {
     // Use the differentialDrive with Speed and Direction as-is
-    diffDrive.arcadeDrive(speed, direction);
+    // diffDrive.arcadeDrive(speed, direction);
+    diffDrive.tankDrive(0.97*speed, speed);
   }
 
   // Create the STOP command using the drive() function
   public void stop() {
     // Full Stop = drive at 0 speed and 0 direction
-    drive(0, 0);
+    driveForward(0);
   }
 
   public double getLeftDistance() {
     // for now, we going to return the Left Encoder as if it's the same as the Right Encoder
     return leftEncoder.getDistance();
+  }
+
+  public double getRightDistance() {
+    return rightEncoder.getDistance();
+  }
+
+  public double getDistance() {
+    return (getLeftDistance() + getRightDistance())/2;
   }
 }

@@ -36,7 +36,7 @@ public class Forward extends CommandBase {
   @Override
   public void execute() {
     // Drive forward until done
-    chassis.drive(0.5, 0);
+    chassis.driveForward(0.85);
   }
 
   // Called once the command ends or is interrupted.
@@ -48,7 +48,7 @@ public class Forward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return chassis.getLeftDistance() >= distance;
+    return chassis.getDistance() >= distance;
 
   }
 }
