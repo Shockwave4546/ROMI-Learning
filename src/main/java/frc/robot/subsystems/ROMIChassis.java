@@ -56,16 +56,16 @@ public class ROMIChassis extends SubsystemBase {
   }
 
   // Create the Drive Command
-  public void driveForward(double speed) {
+  public void driveForward(double speed, double direction) {
     // Use the differentialDrive with Speed and Direction as-is
-    // diffDrive.arcadeDrive(speed, direction);
-    diffDrive.tankDrive(0.97*speed, speed);
+    diffDrive.arcadeDrive(speed, direction);
+    // diffDrive.tankDrive(0.97*speed, speed);
   }
 
   // Create the STOP command using the drive() function
   public void stop() {
     // Full Stop = drive at 0 speed and 0 direction
-    driveForward(0);
+    driveForward(0, 0);
   }
 
   public double getLeftDistance() {
