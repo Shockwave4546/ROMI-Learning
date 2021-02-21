@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ROMIChassis;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import frc.robot.commands.DriveByController;
 import frc.robot.commands.Forward;
+import frc.robot.commands.Turn;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -22,6 +24,8 @@ import frc.robot.commands.Forward;
 public class RobotContainer {
 
   public static final ROMIChassis chassis = new ROMIChassis();
+  // Add and xbox controller
+  public static final XboxController xboxControl = new XboxController(Constants.ControllerPort);
 
   // private final SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -39,9 +43,14 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     SmartDashboard.putData("Forward", new Forward(10));
+    SmartDashboard.putData("Turn", new Turn(45));
+
     //m_chooser.setDefaultOption("Forward 10in", new Forward(10.0));
     //m_chooser.addOption("Forward 1in", new Forward(1.0));
     //SmartDashboard.putData(m_chooser);
+
+    // Add XBox Controller as the default drive by controller
+    chassis.setDefaultCommand((Command) new DriveByController());
   }
 
   /**
