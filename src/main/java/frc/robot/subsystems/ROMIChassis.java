@@ -102,7 +102,10 @@ public class ROMIChassis extends SubsystemBase {
     // This gets it from Axis(4) and Axis(5) which is the right stick
     // diffDrive.arcadeDrive(xboxControl.getX(), xboxControl.getY());
     // 0 and 1 is the left stick - use getRawAxis() to get the value
+    //
     // remember, axis on the controller are inverted - pull back = 1, push forward = -1
-    diffDrive.arcadeDrive(-1 * xboxControl.getRawAxis(1), xboxControl.getRawAxis(0));
+    // going to use the Left Stick for Forward/Backward only (this will remove the noise from left/right) and
+    // use the Right Stick for Left/Right turn only (this will remove those noise from the up/down)
+    diffDrive.arcadeDrive(-0.75 * xboxControl.getRawAxis(1), 0.75 * xboxControl.getRawAxis(4));
   }
 }
