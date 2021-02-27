@@ -26,10 +26,12 @@ public final class Constants {
 
     // Additional parameters - not specific PORTS related
     // Wheel diameter is 2.83"
-    public static final double WHEEL_DIA = 2.83;
+    // public static final double WHEEL_DIA = 2.83;
+    public static final double WHEEL_DIA = 2.76;
     // ROMI's encoder is 1440 pulse per revolution 
     //  => resolution = 1440 pulses/360 degree or 4 pulse/degree of rotations) or 0.25 degree/pulse
-    public static final double PULSES_PER_REVOLUTION = 1440.0;
+    // public static final double PULSES_PER_REVOLUTION = 1440.0;
+    public static final double PULSES_PER_REVOLUTION = 1437.0;
     // convert to inches per revolution -> (Dia * Pi)/Pulse_Per_Rev
     public static final double INCHES_PER_PULSE = Math.PI * WHEEL_DIA / PULSES_PER_REVOLUTION;
     //

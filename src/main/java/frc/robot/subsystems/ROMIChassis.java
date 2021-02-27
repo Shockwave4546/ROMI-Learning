@@ -77,6 +77,18 @@ public class ROMIChassis extends SubsystemBase {
     driveForward(0, 0);
   }
 
+  public double getLeftCount() {
+    return leftEncoder.get();
+  }
+
+  public double getRightCount() {
+    return rightEncoder.get();
+  }
+
+  public double getCount() {
+    return (leftEncoder.get() + rightEncoder.get())/2;
+  }
+
   public double getLeftDistance() {
     // for now, we going to return the Left Encoder as if it's the same as the Right Encoder
     return leftEncoder.getDistance();
@@ -106,6 +118,6 @@ public class ROMIChassis extends SubsystemBase {
     // remember, axis on the controller are inverted - pull back = 1, push forward = -1
     // going to use the Left Stick for Forward/Backward only (this will remove the noise from left/right) and
     // use the Right Stick for Left/Right turn only (this will remove those noise from the up/down)
-    diffDrive.arcadeDrive(-0.75 * xboxControl.getRawAxis(1), 0.75 * xboxControl.getRawAxis(4));
+    diffDrive.arcadeDrive(-0.55 * xboxControl.getRawAxis(1), 0.55 * xboxControl.getRawAxis(4));
   }
 }

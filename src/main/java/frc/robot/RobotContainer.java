@@ -42,15 +42,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    SmartDashboard.putData("Forward", new Forward(10));
+    SmartDashboard.putData("Forward", new Forward(14));
     SmartDashboard.putData("Turn", new Turn(45));
 
     //m_chooser.setDefaultOption("Forward 10in", new Forward(10.0));
     //m_chooser.addOption("Forward 1in", new Forward(1.0));
     //SmartDashboard.putData(m_chooser);
 
-    // Add XBox Controller as the default drive by controller
-    chassis.setDefaultCommand((Command) new DriveByController());
+// Moved to TeleOp Only so it wont gets in the way
+//    // Add XBox Controller as the default drive by controller
+//    chassis.setDefaultCommand((Command) new DriveByController());
   }
 
   /**
@@ -62,5 +63,11 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     // return m_autoCommand;
     return new PrintCommand("message");
+  }
+
+  //
+  public Command gTeleOpOnly() {
+    // Add XBox Controller as the default drive by controller
+    return (Command) new DriveByController();
   }
 }
