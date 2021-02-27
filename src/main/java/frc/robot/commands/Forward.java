@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ROMIChassis;
@@ -48,7 +49,15 @@ public class Forward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return chassis.getDistance() >= distance;
+    // return chassis.getDistance() >= distance;
+    double count = (distance / 0.00604);
+    double rawcount = chassis.getCount();
+
+    SmartDashboard.putNumber("Want: ", count);
+    SmartDashboard.putNumber("Rawcount: ", rawcount);
+    SmartDashboard.putNumber("LeftRaw", chassis.getLeftCount());
+    SmartDashboard.putNumber("RightRaw", chassis.getRightCount());
+    return (rawcount>=count);
 
   }
 }

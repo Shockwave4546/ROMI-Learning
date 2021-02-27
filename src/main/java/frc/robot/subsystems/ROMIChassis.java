@@ -6,9 +6,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.sensors.RomiGyro;
 
 public class ROMIChassis extends SubsystemBase {
   //
@@ -16,6 +18,8 @@ public class ROMIChassis extends SubsystemBase {
   PWMVictorSPX leftMotor, rightMotor;
   Encoder leftEncoder, rightEncoder;
   DifferentialDrive diffDrive;
+  RomiGyro gyro;
+  XboxController xboxControl;
 
   /** Creates a new ROMIChassis. */
   public ROMIChassis() {
@@ -38,10 +42,14 @@ public class ROMIChassis extends SubsystemBase {
     leftEncoder.setDistancePerPulse(Constants.INCHES_PER_PULSE);
     rightEncoder.setDistancePerPulse(Constants.INCHES_PER_PULSE);
 
+    // Instantiate the Gyro too
+    gyro = new RomiGyro();
+    xboxControl = new XboxController(Constants.ControllerPort);
+
     // add these to the dashboard
     addChild("leftEncoder", leftEncoder);
     addChild("rightEncoder", rightEncoder);
-
+    // addChild("gyro", gyro);
   }
 
   @Override
@@ -49,10 +57,11 @@ public class ROMIChassis extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  // Create the reset command to reset the left and right encoders
+  // Create the reset command to reset the left and right encoders and also the gyro too
   public void reset() {
     leftEncoder.reset();
     rightEncoder.reset();
+    gyro.reset();
   }
 
   // Create the Drive Command
@@ -68,6 +77,18 @@ public class ROMIChassis extends SubsystemBase {
     driveForward(0, 0);
   }
 
+  public double getLeftCount() {
+    return leftEncoder.get();
+  }
+
+  public double getRightCount() {
+    return rightEncoder.get();
+  }
+
+  public double getCount() {
+    return (leftEncoder.get() + rightEncoder.get())/2;
+  }
+
   public double getLeftDistance() {
     // for now, we going to return the Left Encoder as if it's the same as the Right Encoder
     return leftEncoder.getDistance();
@@ -79,5 +100,24 @@ public class ROMIChassis extends SubsystemBase {
 
   public double getDistance() {
     return (getLeftDistance() + getRightDistance())/2;
+  }
+
+  public double getHeading() {
+    return gyro.getAngleZ();
+  }
+
+  public void Turn(double speed, double direction) {
+    diffDrive.arcadeDrive(speed, direction);
+  }
+
+  public void DBC(XboxController xboxControl) {
+    // This gets it from Axis(4) and Axis(5) which is the right stick
+    // diffDrive.arcadeDrive(xboxControl.getX(), xboxControl.getY());
+    // 0 and 1 is the left stick - use getRawAxis() to get the value
+    //
+    // remember, axis on the controller are inverted - pull back = 1, push forward = -1
+    // going to use the Left Stick for Forward/Backward only (this will remove the noise from left/right) and
+    // use the Right Stick for Left/Right turn only (this will remove those noise from the up/down)
+    diffDrive.arcadeDrive(-0.55 * xboxControl.getRawAxis(1), 0.55 * xboxControl.getRawAxis(4));
   }
 }
