@@ -12,10 +12,22 @@ import frc.robot.subsystems.ROMIChassis;
 public class Turn extends CommandBase {
   double angle;
   ROMIChassis chassis;
+  // When turnSpeed at 0.30, turned Angle is off by about 1 degree so probably slowest we want to go
+  // When turnSpeed at 0.45, turned Angle is off by 1-4 degrees so probably fastest we want to go
+  static final double turnSpeed = 0.38; 
+  // When input Angle is negative, we wanted to turn LEFT, otherwise turn RIGHT (save 180 turn time)
+  // So we will flip the turnDirection based on input angle.  
+  double turnDirection;
 
   /** Creates a new Turn. */
   public Turn(double degree) {
     angle = degree;
+    // Flip the Turn Direction based on angle pos/neg
+    if (angle < 0) {
+      turnDirection = -1;
+    } else {
+      turnDirection = 1;
+    }
     chassis = RobotContainer.chassis;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(chassis);
@@ -30,7 +42,21 @@ public class Turn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    chassis.Turn(0, angle);
+    double enda;
+    enda = chassis.getHeading();
+      if (angle > 0) {
+        if (enda >= angle) {
+          chassis.stop();
+        } else {
+          chassis.Turn(0, turnDirection * turnSpeed);
+        }
+      } else {
+        if (angle >= enda) {
+          chassis.stop();
+        } else {
+          chassis.Turn(0, turnDirection * turnSpeed);
+        }
+      }
   }
 
   // Called once the command ends or is interrupted.
@@ -44,7 +70,13 @@ public class Turn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    SmartDashboard.putNumber("Distance", chassis.getDistance());
     SmartDashboard.putNumber("Heading", chassis.getHeading());
-    return (Math.abs(chassis.getHeading()) >= Math.abs(angle));
+    // return (Math.abs(chassis.getHeading()) >= Math.abs(angle));
+    if (angle > 0) {
+      return (chassis.getHeading() >= angle);
+    } else {
+      return (angle >= chassis.getHeading());
+    }
   }
 }

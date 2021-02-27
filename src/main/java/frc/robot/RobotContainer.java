@@ -11,9 +11,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ROMIChassis;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveByController;
 import frc.robot.commands.Forward;
 import frc.robot.commands.Turn;
+// import frc.robot.commands.AutoDrive;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,8 +44,27 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    SmartDashboard.putData("Forward", new Forward(14));
-    SmartDashboard.putData("Turn", new Turn(45));
+    //SmartDashboard.putData("Forward", new Forward(15.2));
+    //SmartDashboard.putData("L30-Turn", new Turn(-30.0));
+    //SmartDashboard.putData("R30-Turn", new Turn(30.0));
+    //SmartDashboard.putData("L80-Turn", new Turn(-75.0));
+
+    SmartDashboard.putData("GoGo GoGo", new SequentialCommandGroup(
+      new Forward(15.6),
+      new Turn(-71.4),
+      new Forward(15.2),
+      new Turn(-68.5),
+      new Forward(9.2),
+      new Turn(-33.0),
+      new Forward(8.6),
+      new Turn(27.3),
+      new Forward(7.4),
+      new Turn(72.4),
+      new Forward(13.6),
+      new Turn(69.0),
+      new Forward(15.3)
+    ));
+
 
     //m_chooser.setDefaultOption("Forward 10in", new Forward(10.0));
     //m_chooser.addOption("Forward 1in", new Forward(1.0));
@@ -62,7 +83,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     // return m_autoCommand;
-    return new PrintCommand("message");
+    // return new PrintCommand("message");
+    // Not doing Autonomous Drive for now, just do inline command groupings instead
+    // return new AutoDrive();
+    return new PrintCommand("Msg");
   }
 
   //

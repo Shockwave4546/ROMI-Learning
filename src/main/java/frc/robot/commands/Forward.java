@@ -13,6 +13,9 @@ public class Forward extends CommandBase {
   // create references to HW and variables that we need inside this Command
   double distance;
   ROMIChassis chassis;
+  // maxForwardSpeed is to control the max forward moving speed (0-1)
+  double maxForwardSpeed = 0.65;
+
 
   /** Creates a new Forward. */
   public Forward(double inches) {
@@ -37,7 +40,7 @@ public class Forward extends CommandBase {
   @Override
   public void execute() {
     // Drive forward until done
-    chassis.driveForward(0.85, 0);
+    chassis.driveForward(maxForwardSpeed, 0);
   }
 
   // Called once the command ends or is interrupted.

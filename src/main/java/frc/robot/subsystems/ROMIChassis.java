@@ -103,7 +103,8 @@ public class ROMIChassis extends SubsystemBase {
   }
 
   public double getHeading() {
-    return gyro.getAngleZ();
+    // Use the ROMIGyro's getAngle instead of getAngleZ() directly
+    return gyro.getAngle();
   }
 
   public void Turn(double speed, double direction) {
