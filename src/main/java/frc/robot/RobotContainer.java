@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveByController;
+import frc.robot.commands.DriveTranslate;
 import frc.robot.commands.Forward;
 import frc.robot.commands.Turn;
 // import frc.robot.commands.AutoDrive;
@@ -48,6 +49,8 @@ public class RobotContainer {
     //SmartDashboard.putData("L30-Turn", new Turn(-30.0));
     //SmartDashboard.putData("R30-Turn", new Turn(30.0));
     //SmartDashboard.putData("L80-Turn", new Turn(-75.0));
+    SmartDashboard.putData("Nick", new DriveTranslate(chassis, 10, 0.7));
+    SmartDashboard.putData("GONick", new DriveTranslate(chassis, 14, 0.4));
 
     SmartDashboard.putData("GoGo GoGo", new SequentialCommandGroup(
       new Forward(15.6),

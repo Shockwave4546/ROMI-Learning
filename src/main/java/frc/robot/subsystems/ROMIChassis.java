@@ -121,4 +121,8 @@ public class ROMIChassis extends SubsystemBase {
     // use the Right Stick for Left/Right turn only (this will remove those noise from the up/down)
     diffDrive.arcadeDrive(-0.55 * xboxControl.getRawAxis(1), 0.55 * xboxControl.getRawAxis(4));
   }
+
+  public void motorSpeed(double lmotor_speed, double rmotor_speed) {
+    diffDrive.tankDrive(lmotor_speed, rmotor_speed);
+  }
 }
