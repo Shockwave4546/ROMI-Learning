@@ -16,6 +16,8 @@ public final class Constants {
     public static final int LEFT_MOTOR_PORT = 0;
     public static final int RIGHT_MOTOR_PORT = 1;
 
+    public static final int Servo_Port = 2;
+
     // Quadrature Encoders on the ROMI - uses 2 ports per encoder
     // Left Side with Ports 4 and 5
     public static final int LEFT_ENCODER_A = 4;

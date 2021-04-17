@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 // import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ROMIChassis;
+import frc.robot.subsystems.ServoArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -16,6 +17,7 @@ import frc.robot.commands.DriveByController;
 import frc.robot.commands.DriveTranslate;
 import frc.robot.commands.Forward;
 import frc.robot.commands.Turn;
+import frc.robot.commands.MoveServoArm;
 // import frc.robot.commands.AutoDrive;
 
 /**
@@ -27,6 +29,7 @@ import frc.robot.commands.Turn;
 public class RobotContainer {
 
   public static final ROMIChassis chassis = new ROMIChassis();
+  public static final ServoArm armServo = new ServoArm();
   // Add and xbox controller
   public static final XboxController xboxControl = new XboxController(Constants.ControllerPort);
 
@@ -52,6 +55,9 @@ public class RobotContainer {
     SmartDashboard.putData("Nick", new DriveTranslate(chassis, 10, 0.7));
     SmartDashboard.putData("GONick", new DriveTranslate(chassis, 14, 0.4));
 
+    SmartDashboard.putData("ZZZZZ", new Turn(10));
+    SmartDashboard.putData("YYYYY", new Turn(-10));
+
     SmartDashboard.putData("GoGo GoGo", new SequentialCommandGroup(
       new Forward(15.6),
       new Turn(-71.4),
@@ -68,6 +74,7 @@ public class RobotContainer {
       new Forward(15.3)
     ));
 
+    SmartDashboard.putData("Arm to:", new MoveServoArm(0.5));
 
     //m_chooser.setDefaultOption("Forward 10in", new Forward(10.0));
     //m_chooser.addOption("Forward 1in", new Forward(1.0));
