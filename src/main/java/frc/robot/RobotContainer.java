@@ -74,7 +74,8 @@ public class RobotContainer {
       new Forward(15.3)
     ));
 
-    SmartDashboard.putData("Arm to:", new MoveServoArm(0.5));
+    SmartDashboard.putData("Arm to", new MoveServoArm());
+    // SmartDashboard.putNumber("ArmPosition", 0.25);
 
     //m_chooser.setDefaultOption("Forward 10in", new Forward(10.0));
     //m_chooser.addOption("Forward 1in", new Forward(1.0));

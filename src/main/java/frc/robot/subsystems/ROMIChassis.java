@@ -50,6 +50,7 @@ public class ROMIChassis extends SubsystemBase {
     addChild("leftEncoder", leftEncoder);
     addChild("rightEncoder", rightEncoder);
     // addChild("gyro", gyro);
+    addChild("Differential Drive", diffDrive);
   }
 
   @Override
@@ -119,7 +120,8 @@ public class ROMIChassis extends SubsystemBase {
     // remember, axis on the controller are inverted - pull back = 1, push forward = -1
     // going to use the Left Stick for Forward/Backward only (this will remove the noise from left/right) and
     // use the Right Stick for Left/Right turn only (this will remove those noise from the up/down)
-    diffDrive.arcadeDrive(-0.55 * xboxControl.getRawAxis(1), 0.55 * xboxControl.getRawAxis(4));
+    // diffDrive.arcadeDrive(-0.55 * xboxControl.getRawAxis(1), 0.55 * xboxControl.getRawAxis(4));
+    diffDrive.arcadeDrive(-1 * Constants.DBCMaxDriveSpeed * xboxControl.getRawAxis(1), Constants.DBCMaxTurnSpeed * xboxControl.getRawAxis(4));
   }
 
   public void motorSpeed(double lmotor_speed, double rmotor_speed) {

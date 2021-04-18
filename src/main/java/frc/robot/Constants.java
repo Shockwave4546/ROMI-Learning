@@ -43,4 +43,8 @@ public final class Constants {
 
     // 
     public static final int ControllerPort = 1;
+
+    //
+    public static final double DBCMaxDriveSpeed = 0.90;
+    public static final double DBCMaxTurnSpeed = 0.90;
 }

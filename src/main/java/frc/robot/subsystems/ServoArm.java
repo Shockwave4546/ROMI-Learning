@@ -16,6 +16,7 @@ public class ServoArm extends SubsystemBase {
   public ServoArm() {
     arm = new Servo(Constants.Servo_Port);
 
+    // put the arm on the dashboard
     addChild("Servo Arm:", arm);
   }
 
