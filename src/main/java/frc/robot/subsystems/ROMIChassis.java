@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.sensors.RomiGyro;
+import edu.wpi.first.wpilibj.DigitalOutput;
 
 public class ROMIChassis extends SubsystemBase {
   //
@@ -20,6 +21,9 @@ public class ROMIChassis extends SubsystemBase {
   DifferentialDrive diffDrive;
   RomiGyro gyro;
   XboxController xboxControl;
+
+  // Use Port 8 as the Digital Out - to SINK (as in 0 to drive and 1 to turn off)
+  private final DigitalOutput DOut = new DigitalOutput(8);
 
   /** Creates a new ROMIChassis. */
   public ROMIChassis() {
@@ -46,6 +50,9 @@ public class ROMIChassis extends SubsystemBase {
     gyro = new RomiGyro();
     xboxControl = new XboxController(Constants.ControllerPort);
 
+    // Initialize this to be true to turn off the motor for now.
+    DOut.set(false);
+
     // add these to the dashboard
     addChild("leftEncoder", leftEncoder);
     addChild("rightEncoder", rightEncoder);
@@ -63,6 +70,8 @@ public class ROMIChassis extends SubsystemBase {
     leftEncoder.reset();
     rightEncoder.reset();
     gyro.reset();
+    // Set DOut to false = 0 to turn off the external Darlington pair which drives the motor
+    DOut.set(false);
   }
 
   // Create the Drive Command
@@ -127,4 +136,9 @@ public class ROMIChassis extends SubsystemBase {
   public void motorSpeed(double lmotor_speed, double rmotor_speed) {
     diffDrive.tankDrive(lmotor_speed, rmotor_speed);
   }
+
+  public void golfBallMotor(boolean val) {
+    DOut.set(val);
+  }
+
 }

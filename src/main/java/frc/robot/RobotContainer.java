@@ -9,15 +9,16 @@ import edu.wpi.first.wpilibj.XboxController;
 // import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ROMIChassis;
-import frc.robot.subsystems.ServoArm;
+// import frc.robot.subsystems.ServoArm;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveByController;
 import frc.robot.commands.DriveTranslate;
 import frc.robot.commands.Forward;
+import frc.robot.commands.GolfBallMotor;
 import frc.robot.commands.Turn;
-import frc.robot.commands.MoveServoArm;
+// import frc.robot.commands.MoveServoArm;
 // import frc.robot.commands.AutoDrive;
 
 /**
@@ -29,7 +30,7 @@ import frc.robot.commands.MoveServoArm;
 public class RobotContainer {
 
   public static final ROMIChassis chassis = new ROMIChassis();
-  public static final ServoArm armServo = new ServoArm();
+  // public static final ServoArm armServo = new ServoArm();
   // Add and xbox controller
   public static final XboxController xboxControl = new XboxController(Constants.ControllerPort);
 
@@ -52,11 +53,18 @@ public class RobotContainer {
     //SmartDashboard.putData("L30-Turn", new Turn(-30.0));
     //SmartDashboard.putData("R30-Turn", new Turn(30.0));
     //SmartDashboard.putData("L80-Turn", new Turn(-75.0));
-    SmartDashboard.putData("Nick", new DriveTranslate(chassis, 10, 0.7));
-    SmartDashboard.putData("GONick", new DriveTranslate(chassis, 14, 0.4));
+    SmartDashboard.putData("Forward 5", new DriveTranslate(chassis, 5, 0.7));
+    SmartDashboard.putData("Forward 10", new DriveTranslate(chassis, 10, 0.7));
+    SmartDashboard.putData("Forward 15", new DriveTranslate(chassis, 15, 0.7));
+    SmartDashboard.putData("Forward 20", new DriveTranslate(chassis, 20, 0.7));
+    SmartDashboard.putData("Forward 25", new DriveTranslate(chassis, 25, 0.7));
+    // SmartDashboard.putData("GONick", new DriveTranslate(chassis, 14, 0.4));
 
-    SmartDashboard.putData("ZZZZZ", new Turn(10));
-    SmartDashboard.putData("YYYYY", new Turn(-10));
+    SmartDashboard.putData("Turn on Golfball Motor", new GolfBallMotor(true));
+    SmartDashboard.putData("Turn off Golfball Motor", new GolfBallMotor(false));
+
+    SmartDashboard.putData("Right Full Turn", new Turn(359));
+    SmartDashboard.putData("Left Full Turn", new Turn(-359));
 
     SmartDashboard.putData("GoGo GoGo", new SequentialCommandGroup(
       new Forward(15.6),
@@ -74,7 +82,7 @@ public class RobotContainer {
       new Forward(15.3)
     ));
 
-    SmartDashboard.putData("Arm to", new MoveServoArm());
+    // SmartDashboard.putData("Arm to", new MoveServoArm());
     // SmartDashboard.putNumber("ArmPosition", 0.25);
 
     //m_chooser.setDefaultOption("Forward 10in", new Forward(10.0));
